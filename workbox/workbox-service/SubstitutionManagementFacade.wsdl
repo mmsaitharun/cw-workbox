@@ -1,0 +1,402 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://incture.com/pmc/poadapter/services/" targetNamespace="http://incture.com/pmc/poadapter/services/">
+<wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://incture.com/pmc/poadapter/services/" version="1.0">
+<xs:element name="baseDto" type="tns:baseDto"/>
+<xs:element name="createRule" type="tns:createRule"/>
+<xs:element name="createRuleResponse" type="tns:createRuleResponse"/>
+<xs:element name="deleteRule" type="tns:deleteRule"/>
+<xs:element name="deleteRuleResponse" type="tns:deleteRuleResponse"/>
+<xs:element name="getActiveRulesBySubstitute" type="tns:getActiveRulesBySubstitute"/>
+<xs:element name="getActiveRulesBySubstituteResponse" type="tns:getActiveRulesBySubstituteResponse"/>
+<xs:element name="getActiveRulesBySubstitutedUser" type="tns:getActiveRulesBySubstitutedUser"/>
+<xs:element name="getActiveRulesBySubstitutedUserResponse" type="tns:getActiveRulesBySubstitutedUserResponse"/>
+<xs:element name="getInactiveRulesBySubstitute" type="tns:getInactiveRulesBySubstitute"/>
+<xs:element name="getInactiveRulesBySubstituteResponse" type="tns:getInactiveRulesBySubstituteResponse"/>
+<xs:element name="getInactiveRulesBySubstitutedUser" type="tns:getInactiveRulesBySubstitutedUser"/>
+<xs:element name="getInactiveRulesBySubstitutedUserResponse" type="tns:getInactiveRulesBySubstitutedUserResponse"/>
+<xs:element name="getRulesBySubstitute" type="tns:getRulesBySubstitute"/>
+<xs:element name="getRulesBySubstituteResponse" type="tns:getRulesBySubstituteResponse"/>
+<xs:element name="getRulesBySubstitutedUser" type="tns:getRulesBySubstitutedUser"/>
+<xs:element name="getRulesBySubstitutedUserResponse" type="tns:getRulesBySubstitutedUserResponse"/>
+<xs:element name="getSubstituteUsers" type="tns:getSubstituteUsers"/>
+<xs:element name="getSubstituteUsersResponse" type="tns:getSubstituteUsersResponse"/>
+<xs:element name="getSubstitutedUsers" type="tns:getSubstitutedUsers"/>
+<xs:element name="getSubstitutedUsersResponse" type="tns:getSubstitutedUsersResponse"/>
+<xs:element name="responseDto" type="tns:responseDto"/>
+<xs:element name="substitutionRuleDto" type="tns:substitutionRuleDto"/>
+<xs:element name="updateRule" type="tns:updateRule"/>
+<xs:element name="updateRuleResponse" type="tns:updateRuleResponse"/>
+<xs:element name="userDto" type="tns:userDto"/>
+<xs:complexType name="createRule">
+<xs:sequence>
+<xs:element minOccurs="0" name="ruleDto" type="tns:substitutionRuleDto"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="substitutionRuleDto">
+<xs:sequence>
+<xs:element name="active" type="xs:boolean"/>
+<xs:element minOccurs="0" name="displayStatus" type="xs:string"/>
+<xs:element name="enabled" type="xs:boolean"/>
+<xs:element minOccurs="0" name="endDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="endDateInString" type="xs:string"/>
+<xs:element minOccurs="0" name="mode" type="xs:string"/>
+<xs:element minOccurs="0" name="ruleId" type="xs:string"/>
+<xs:element minOccurs="0" name="startDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="startDateInString" type="xs:string"/>
+<xs:element minOccurs="0" name="substitutedUser" type="xs:string"/>
+<xs:element minOccurs="0" name="substitutedUserName" type="xs:string"/>
+<xs:element minOccurs="0" name="substitutingUser" type="xs:string"/>
+<xs:element minOccurs="0" name="substitutingUserName" type="xs:string"/>
+<xs:element minOccurs="0" name="substitutionProfileId" type="xs:string"/>
+<xs:element name="takenOver" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="createRuleResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="tns:responseDto"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="responseDto">
+<xs:sequence>
+<xs:element minOccurs="0" name="message" type="xs:string"/>
+<xs:element minOccurs="0" name="status" type="xs:string"/>
+<xs:element minOccurs="0" name="statusCode" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getSubstitutedUsers">
+<xs:sequence>
+<xs:element minOccurs="0" name="substitutingUserString" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getSubstitutedUsersResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:userDto"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="userDto">
+<xs:complexContent>
+<xs:extension base="tns:baseDto">
+<xs:sequence>
+<xs:element minOccurs="0" name="emailId" type="xs:string"/>
+<xs:element minOccurs="0" name="firstName" type="xs:string"/>
+<xs:element minOccurs="0" name="lastName" type="xs:string"/>
+<xs:element minOccurs="0" name="loginId" type="xs:string"/>
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:complexType abstract="true" name="baseDto">
+<xs:sequence/>
+</xs:complexType>
+<xs:complexType name="getSubstituteUsers">
+<xs:sequence>
+<xs:element minOccurs="0" name="substituteUserString" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getSubstituteUsersResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:userDto"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getActiveRulesBySubstitute">
+<xs:sequence>
+<xs:element minOccurs="0" name="substitutingUser" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getActiveRulesBySubstituteResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:substitutionRuleDto"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getActiveRulesBySubstitutedUser">
+<xs:sequence>
+<xs:element minOccurs="0" name="substitutedUser" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getActiveRulesBySubstitutedUserResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:substitutionRuleDto"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getInactiveRulesBySubstitute">
+<xs:sequence>
+<xs:element minOccurs="0" name="substitutingUser" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getInactiveRulesBySubstituteResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:substitutionRuleDto"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getInactiveRulesBySubstitutedUser">
+<xs:sequence>
+<xs:element minOccurs="0" name="substitutedUser" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getInactiveRulesBySubstitutedUserResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:substitutionRuleDto"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getRulesBySubstitutedUser">
+<xs:sequence>
+<xs:element minOccurs="0" name="user" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getRulesBySubstitutedUserResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:substitutionRuleDto"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getRulesBySubstitute">
+<xs:sequence>
+<xs:element minOccurs="0" name="user" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getRulesBySubstituteResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:substitutionRuleDto"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="updateRule">
+<xs:sequence>
+<xs:element minOccurs="0" name="ruleDto" type="tns:substitutionRuleDto"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="updateRuleResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="tns:responseDto"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="deleteRule">
+<xs:sequence>
+<xs:element minOccurs="0" name="ruleDto" type="tns:substitutionRuleDto"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="deleteRuleResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="tns:responseDto"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+</wsdl:types>
+<wsdl:message name="createRuleIn">
+<wsdl:part element="tns:createRule" name="parameters"/>
+</wsdl:message>
+<wsdl:message name="createRuleOut">
+<wsdl:part element="tns:createRuleResponse" name="createRuleResponse"/>
+</wsdl:message>
+<wsdl:message name="getSubstitutedUsersIn">
+<wsdl:part element="tns:getSubstitutedUsers" name="parameters"/>
+</wsdl:message>
+<wsdl:message name="getSubstitutedUsersOut">
+<wsdl:part element="tns:getSubstitutedUsersResponse" name="getSubstitutedUsersResponse"/>
+</wsdl:message>
+<wsdl:message name="getSubstituteUsersIn">
+<wsdl:part element="tns:getSubstituteUsers" name="parameters"/>
+</wsdl:message>
+<wsdl:message name="getSubstituteUsersOut">
+<wsdl:part element="tns:getSubstituteUsersResponse" name="getSubstituteUsersResponse"/>
+</wsdl:message>
+<wsdl:message name="getActiveRulesBySubstituteIn">
+<wsdl:part element="tns:getActiveRulesBySubstitute" name="parameters"/>
+</wsdl:message>
+<wsdl:message name="getActiveRulesBySubstituteOut">
+<wsdl:part element="tns:getActiveRulesBySubstituteResponse" name="getActiveRulesBySubstituteResponse"/>
+</wsdl:message>
+<wsdl:message name="getActiveRulesBySubstitutedUserIn">
+<wsdl:part element="tns:getActiveRulesBySubstitutedUser" name="parameters"/>
+</wsdl:message>
+<wsdl:message name="getActiveRulesBySubstitutedUserOut">
+<wsdl:part element="tns:getActiveRulesBySubstitutedUserResponse" name="getActiveRulesBySubstitutedUserResponse"/>
+</wsdl:message>
+<wsdl:message name="getInactiveRulesBySubstituteIn">
+<wsdl:part element="tns:getInactiveRulesBySubstitute" name="parameters"/>
+</wsdl:message>
+<wsdl:message name="getInactiveRulesBySubstituteOut">
+<wsdl:part element="tns:getInactiveRulesBySubstituteResponse" name="getInactiveRulesBySubstituteResponse"/>
+</wsdl:message>
+<wsdl:message name="getInactiveRulesBySubstitutedUserIn">
+<wsdl:part element="tns:getInactiveRulesBySubstitutedUser" name="parameters"/>
+</wsdl:message>
+<wsdl:message name="getInactiveRulesBySubstitutedUserOut">
+<wsdl:part element="tns:getInactiveRulesBySubstitutedUserResponse" name="getInactiveRulesBySubstitutedUserResponse"/>
+</wsdl:message>
+<wsdl:message name="getRulesBySubstitutedUserIn">
+<wsdl:part element="tns:getRulesBySubstitutedUser" name="parameters"/>
+</wsdl:message>
+<wsdl:message name="getRulesBySubstitutedUserOut">
+<wsdl:part element="tns:getRulesBySubstitutedUserResponse" name="getRulesBySubstitutedUserResponse"/>
+</wsdl:message>
+<wsdl:message name="getRulesBySubstituteIn">
+<wsdl:part element="tns:getRulesBySubstitute" name="parameters"/>
+</wsdl:message>
+<wsdl:message name="getRulesBySubstituteOut">
+<wsdl:part element="tns:getRulesBySubstituteResponse" name="getRulesBySubstituteResponse"/>
+</wsdl:message>
+<wsdl:message name="updateRuleIn">
+<wsdl:part element="tns:updateRule" name="parameters"/>
+</wsdl:message>
+<wsdl:message name="updateRuleOut">
+<wsdl:part element="tns:updateRuleResponse" name="updateRuleResponse"/>
+</wsdl:message>
+<wsdl:message name="deleteRuleIn">
+<wsdl:part element="tns:deleteRule" name="parameters"/>
+</wsdl:message>
+<wsdl:message name="deleteRuleOut">
+<wsdl:part element="tns:deleteRuleResponse" name="deleteRuleResponse"/>
+</wsdl:message>
+<wsdl:portType name="SubstitutionManagementFacade">
+<wsdl:operation name="createRule" parameterOrder="parameters">
+<wsdl:input message="tns:createRuleIn"/>
+<wsdl:output message="tns:createRuleOut"/>
+</wsdl:operation>
+<wsdl:operation name="getSubstitutedUsers" parameterOrder="parameters">
+<wsdl:input message="tns:getSubstitutedUsersIn"/>
+<wsdl:output message="tns:getSubstitutedUsersOut"/>
+</wsdl:operation>
+<wsdl:operation name="getSubstituteUsers" parameterOrder="parameters">
+<wsdl:input message="tns:getSubstituteUsersIn"/>
+<wsdl:output message="tns:getSubstituteUsersOut"/>
+</wsdl:operation>
+<wsdl:operation name="getActiveRulesBySubstitute" parameterOrder="parameters">
+<wsdl:input message="tns:getActiveRulesBySubstituteIn"/>
+<wsdl:output message="tns:getActiveRulesBySubstituteOut"/>
+</wsdl:operation>
+<wsdl:operation name="getActiveRulesBySubstitutedUser" parameterOrder="parameters">
+<wsdl:input message="tns:getActiveRulesBySubstitutedUserIn"/>
+<wsdl:output message="tns:getActiveRulesBySubstitutedUserOut"/>
+</wsdl:operation>
+<wsdl:operation name="getInactiveRulesBySubstitute" parameterOrder="parameters">
+<wsdl:input message="tns:getInactiveRulesBySubstituteIn"/>
+<wsdl:output message="tns:getInactiveRulesBySubstituteOut"/>
+</wsdl:operation>
+<wsdl:operation name="getInactiveRulesBySubstitutedUser" parameterOrder="parameters">
+<wsdl:input message="tns:getInactiveRulesBySubstitutedUserIn"/>
+<wsdl:output message="tns:getInactiveRulesBySubstitutedUserOut"/>
+</wsdl:operation>
+<wsdl:operation name="getRulesBySubstitutedUser" parameterOrder="parameters">
+<wsdl:input message="tns:getRulesBySubstitutedUserIn"/>
+<wsdl:output message="tns:getRulesBySubstitutedUserOut"/>
+</wsdl:operation>
+<wsdl:operation name="getRulesBySubstitute" parameterOrder="parameters">
+<wsdl:input message="tns:getRulesBySubstituteIn"/>
+<wsdl:output message="tns:getRulesBySubstituteOut"/>
+</wsdl:operation>
+<wsdl:operation name="updateRule" parameterOrder="parameters">
+<wsdl:input message="tns:updateRuleIn"/>
+<wsdl:output message="tns:updateRuleOut"/>
+</wsdl:operation>
+<wsdl:operation name="deleteRule" parameterOrder="parameters">
+<wsdl:input message="tns:deleteRuleIn"/>
+<wsdl:output message="tns:deleteRuleOut"/>
+</wsdl:operation>
+</wsdl:portType>
+<wsdl:binding xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="SubstitutionManagementFacadeBinding" type="tns:SubstitutionManagementFacade">
+<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+<wsdl:operation name="createRule">
+<soap:operation soapAction=""/>
+<wsdl:input>
+<soap:body parts="parameters" use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="getSubstitutedUsers">
+<soap:operation soapAction=""/>
+<wsdl:input>
+<soap:body parts="parameters" use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="getSubstituteUsers">
+<soap:operation soapAction=""/>
+<wsdl:input>
+<soap:body parts="parameters" use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="getActiveRulesBySubstitute">
+<soap:operation soapAction=""/>
+<wsdl:input>
+<soap:body parts="parameters" use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="getActiveRulesBySubstitutedUser">
+<soap:operation soapAction=""/>
+<wsdl:input>
+<soap:body parts="parameters" use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="getInactiveRulesBySubstitute">
+<soap:operation soapAction=""/>
+<wsdl:input>
+<soap:body parts="parameters" use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="getInactiveRulesBySubstitutedUser">
+<soap:operation soapAction=""/>
+<wsdl:input>
+<soap:body parts="parameters" use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="getRulesBySubstitutedUser">
+<soap:operation soapAction=""/>
+<wsdl:input>
+<soap:body parts="parameters" use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="getRulesBySubstitute">
+<soap:operation soapAction=""/>
+<wsdl:input>
+<soap:body parts="parameters" use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="updateRule">
+<soap:operation soapAction=""/>
+<wsdl:input>
+<soap:body parts="parameters" use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="deleteRule">
+<soap:operation soapAction=""/>
+<wsdl:input>
+<soap:body parts="parameters" use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:service name="SubstitutionManagementFacadeService">
+<wsdl:port binding="tns:SubstitutionManagementFacadeBinding" name="SubstitutionManagementFacadePort">
+<soap:address xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" location="http://incturecwd:50000/SubstitutionManagementFacadeService/SubstitutionManagementFacade"/>
+</wsdl:port>
+</wsdl:service>
+</wsdl:definitions>
