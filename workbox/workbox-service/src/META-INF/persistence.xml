@@ -24,7 +24,7 @@
 			<property name="javax.persistence.jdbc.password" value="Incture1234567891013" /> -->
 			<property name="eclipselink.ddl-generation" value="create-tables" />
 			<property name="eclipselink.ddl-generation.output-mode" value="both" />
-			<property name="eclipselink.logging.level" value="FINEST" />
+			<property name="eclipselink.logging.level" value="OFF" />
 		</properties>
 		
 	</persistence-unit>

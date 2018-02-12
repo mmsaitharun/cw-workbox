@@ -22,9 +22,9 @@ public class DatabasePropertyProvider {
 	public final static String HANA_JDBC_DRIVER = "com.sap.db.jdbc.Driver";
 //	public final static String HANA_JDBC_URL = "jdbc:sap://localhost:30015/WORKBOX";
 	public final static String HANA_JDBC_URL = "jdbc:sap://vadbi4t.od.sap.biz:30015/WORKBOX";
-//	public final static String HANA_JDBC_URL = "jdbc:sap://10.104.169.230:30015/WORKBOX";
+//	public final static String HANA_JDBC_URL = "jdbc:sap://vadbi01.nwtrial.od.sap.biz:30293/WORKBOX";
 	public final static String HANA_JDBC_USER = "WORKBOX";
-	public final static String HANA_JDBC_PASSWORD = "Incture1234567891013";
+	public final static String HANA_JDBC_PASSWORD = "Incture1234567891012";
 	public final static Class<?> HANA_JDBC_PROVIDER_CLASS = org.eclipse.persistence.jpa.PersistenceProvider.class;
 	public final static String HANA_CACHE_SHARED_DEFAULT = "false";
 	

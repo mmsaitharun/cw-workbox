@@ -1,6 +1,5 @@
 package oneapp.incture.workbox.pmc.services;
 
-
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -106,7 +105,4 @@ public class EntityManagerProvider implements EntityManagerProviderLocal {
 		List<?> returnList = query.getResultList();
 		return returnList;
 	}
-	
-
-
 }
