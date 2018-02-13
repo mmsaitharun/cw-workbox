@@ -12,8 +12,10 @@ public class TaskOwnersDto extends BaseDto{
 	private String eventId;
 	private String taskOwner;
 	private Boolean isProcessed;
+	private Boolean isSubstituted;
 	private String taskOwnerDisplayName;
 	private String ownerEmail;
+	
 	
 	public String getEventId() {
 		return eventId;
@@ -53,6 +55,14 @@ public class TaskOwnersDto extends BaseDto{
 				+ ", taskOwnerDisplayName=" + taskOwnerDisplayName + ", ownerEmail=" + ownerEmail + "]";
 	}
 
+	public Boolean getIsSubstituted() {
+		return isSubstituted;
+	}
+
+	public void setIsSubstituted(Boolean isSubstituted) {
+		this.isSubstituted = isSubstituted;
+	}
+	
 	@Override
 	public Boolean getValidForUsage() {
 		// TODO Auto-generated method stub

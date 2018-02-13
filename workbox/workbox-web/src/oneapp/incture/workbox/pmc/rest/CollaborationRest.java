@@ -10,10 +10,10 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import oneapp.incture.workbox.pmc.dto.CollaborationDto;
-import oneapp.incture.workbox.pmc.dto.CollaborationResponseDto;
-import oneapp.incture.workbox.pmc.dto.NotificationResponseDto;
-import oneapp.incture.workbox.pmc.dto.ResponseMessage;
+import oneapp.incture.workbox.pmc.dto.responses.CollaborationResponseDto;
+import oneapp.incture.workbox.pmc.dto.responses.NotificationResponseDto;
 import oneapp.incture.workbox.pmc.services.CollaborationFacadeLocal;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 
 @Path("/collaboration")
 @Produces({ MediaType.APPLICATION_JSON })

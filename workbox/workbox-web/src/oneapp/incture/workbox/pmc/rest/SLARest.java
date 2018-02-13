@@ -9,10 +9,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import oneapp.incture.workbox.pmc.dto.ResponseMessage;
 import oneapp.incture.workbox.pmc.dto.SlaListDto;
 import oneapp.incture.workbox.pmc.dto.responses.SlaProcessNamesResponse;
 import oneapp.incture.workbox.pmc.services.SlaManagementFacadeLocal;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 
 
 @Path("/sla")

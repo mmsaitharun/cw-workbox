@@ -14,8 +14,8 @@ import javax.persistence.EntityManager;
 
 import oneapp.incture.workbox.pmc.dto.MailRequestDto;
 import oneapp.incture.workbox.pmc.dto.RemainderMailDto;
-import oneapp.incture.workbox.pmc.dto.ResponseMessage;
 import oneapp.incture.workbox.pmc.entity.SlaManagementDo;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 import oneapp.incture.workbox.util.ServicesUtil;
 
 public class MailService {

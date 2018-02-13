@@ -16,9 +16,9 @@ import com.incture.pmc.poadapter.services.SubstitutionManagementFacadeServiceLoc
 import com.incture.pmc.poadapter.services.SubstitutionRuleDto;
 import com.incture.pmc.poadapter.services.UserDto;
 
-import oneapp.incture.workbox.inbox.dto.ResponseMessage;
 import oneapp.incture.workbox.pmc.dto.responses.SubstitutionResponseDto;
 import oneapp.incture.workbox.pmc.dto.responses.UserDtoResponse;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 import oneapp.incture.workbox.util.PMCConstant;
 import oneapp.incture.workbox.util.ServicesUtil;
 

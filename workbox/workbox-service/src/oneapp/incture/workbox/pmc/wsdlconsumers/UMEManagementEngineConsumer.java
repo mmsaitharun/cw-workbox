@@ -20,7 +20,6 @@ import com.incture.pmc.poadapter.services.UserDetailsDto;
 import com.incture.pmc.poadapter.services.UserDto;
 import com.incture.pmc.poadapter.services.UserGroupDto;
 
-import oneapp.incture.workbox.inbox.dto.ResponseMessage;
 import oneapp.incture.workbox.pmc.dto.RoleOfPmcDto;
 import oneapp.incture.workbox.pmc.dto.UserWorkloadDetailsDto;
 import oneapp.incture.workbox.pmc.dto.responses.GroupInfoDtoResponse;
@@ -28,6 +27,7 @@ import oneapp.incture.workbox.pmc.dto.responses.RoleInfoResponse;
 import oneapp.incture.workbox.pmc.dto.responses.UserDetailsResponse;
 import oneapp.incture.workbox.pmc.dto.responses.UserDtoResponse;
 import oneapp.incture.workbox.pmc.dto.responses.UserGroupDtoResponse;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 import oneapp.incture.workbox.util.PMCConstant;
 import oneapp.incture.workbox.util.ServicesUtil;
 

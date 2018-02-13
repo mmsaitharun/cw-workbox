@@ -2,7 +2,7 @@ package oneapp.incture.workbox.pmc.dto.responses;
 
 import java.util.List;
 
-import oneapp.incture.workbox.pmc.dto.ResponseMessage;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 import oneapp.incture.workbox.poadapter.dto.TaskEventsDto;
 
 public class TaskEventsResponse {

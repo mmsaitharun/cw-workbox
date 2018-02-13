@@ -17,8 +17,8 @@ import java.util.Map;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-import oneapp.incture.workbox.pmc.dto.ResponseMessage;
 import oneapp.incture.workbox.pmc.services.EntityManagerProviderLocal;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 import oneapp.incture.workbox.util.ServicesUtil;
 
 /**

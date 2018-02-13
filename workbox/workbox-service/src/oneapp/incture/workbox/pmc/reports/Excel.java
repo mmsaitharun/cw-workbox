@@ -16,7 +16,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import oneapp.incture.workbox.pmc.dto.DownloadReportResponseDto;
 import oneapp.incture.workbox.pmc.dto.ReportFormattedDto;
-import oneapp.incture.workbox.pmc.dto.ResponseMessage;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 import oneapp.incture.workbox.util.ServicesUtil;
 
 /**

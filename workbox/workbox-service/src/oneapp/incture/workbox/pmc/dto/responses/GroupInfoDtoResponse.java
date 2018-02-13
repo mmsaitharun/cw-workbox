@@ -1,9 +1,10 @@
 package oneapp.incture.workbox.pmc.dto.responses;
 
 import java.util.List;
+
 import com.incture.pmc.poadapter.services.GroupInfoDto;
 
-import oneapp.incture.workbox.inbox.dto.ResponseMessage;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 
 public class GroupInfoDtoResponse {
 

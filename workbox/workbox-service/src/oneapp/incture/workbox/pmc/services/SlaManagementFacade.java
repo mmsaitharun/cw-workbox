@@ -3,11 +3,11 @@ package oneapp.incture.workbox.pmc.services;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-import oneapp.incture.workbox.pmc.dto.ResponseMessage;
 import oneapp.incture.workbox.pmc.dto.SlaListDto;
 import oneapp.incture.workbox.pmc.dto.responses.SlaProcessNamesResponse;
 import oneapp.incture.workbox.pmc.wsdlconsumers.UMEManagementEngineConsumer;
 import oneapp.incture.workbox.poadapter.dao.SlaManagementDao;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 
 /**
  * Session Bean implementation class ConfigurationFacade

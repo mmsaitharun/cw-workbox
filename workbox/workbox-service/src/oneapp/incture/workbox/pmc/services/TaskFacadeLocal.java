@@ -4,10 +4,10 @@ import javax.ejb.Local;
 
 import oneapp.incture.workbox.inbox.dto.WorkBoxActionDto;
 import oneapp.incture.workbox.pmc.dto.ManageTasksRequestDto;
-import oneapp.incture.workbox.pmc.dto.ManageTasksResponseDto;
-import oneapp.incture.workbox.pmc.dto.TaskAgeingResponse;
+import oneapp.incture.workbox.pmc.dto.TaskOwnersListDto;
+import oneapp.incture.workbox.pmc.dto.responses.ManageTasksResponseDto;
+import oneapp.incture.workbox.pmc.dto.responses.TaskAgeingResponse;
 import oneapp.incture.workbox.pmc.dto.responses.TaskEventsResponse;
-import oneapp.incture.workbox.poadapter.dto.TaskOwnersListDto;
 
 @Local
 public interface TaskFacadeLocal {

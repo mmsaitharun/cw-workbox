@@ -9,7 +9,6 @@ import java.util.Set;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-import oneapp.incture.workbox.inbox.dto.ResponseMessage;
 import oneapp.incture.workbox.pmc.dto.ProcessConfigDto;
 import oneapp.incture.workbox.pmc.dto.ProcessListDto;
 import oneapp.incture.workbox.pmc.dto.ReportAgingDto;
@@ -21,6 +20,7 @@ import oneapp.incture.workbox.poadapter.dao.ProcessConfigDao;
 import oneapp.incture.workbox.poadapter.dao.ProcessEventsDao;
 import oneapp.incture.workbox.poadapter.dao.ReportAgingDao;
 import oneapp.incture.workbox.poadapter.dao.WorkloadRangeDao;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 import oneapp.incture.workbox.util.ExecutionFault;
 import oneapp.incture.workbox.util.InvalidInputFault;
 import oneapp.incture.workbox.util.NoResultFault;

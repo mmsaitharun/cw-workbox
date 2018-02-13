@@ -13,8 +13,8 @@ import javax.persistence.Query;
 
 import oneapp.incture.workbox.pmc.dto.ManageTasksDto;
 import oneapp.incture.workbox.pmc.dto.ManageTasksRequestDto;
-import oneapp.incture.workbox.pmc.dto.ManageTasksResponseDto;
-import oneapp.incture.workbox.pmc.dto.ResponseMessage;
+import oneapp.incture.workbox.pmc.dto.responses.ManageTasksResponseDto;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 import oneapp.incture.workbox.poadapter.dto.TaskEventsDto;
 import oneapp.incture.workbox.poadapter.entity.TaskEventsDo;
 import oneapp.incture.workbox.poadapter.entity.TaskEventsDoPK;
@@ -69,6 +69,8 @@ public class TaskEventsDao extends BaseDao<TaskEventsDo, TaskEventsDto> {
 			taskEventsDto.setForwardedAt(entity.getForwardedAt());
 		if(!ServicesUtil.isEmpty(entity.getOrigin()))
 			taskEventsDto.setOrigin(entity.getOrigin());
+		if(!ServicesUtil.isEmpty(entity.getUrl()))
+			taskEventsDto.setDetailUrl(entity.getUrl());
 		return taskEventsDto;
 	}
 
@@ -114,6 +116,8 @@ public class TaskEventsDao extends BaseDao<TaskEventsDo, TaskEventsDto> {
 			entity.setForwardedAt(fromDto.getForwardedAt());
 		if(!ServicesUtil.isEmpty(fromDto.getOrigin()))
 			entity.setOrigin(fromDto.getOrigin());
+		if(!ServicesUtil.isEmpty(fromDto.getDetailUrl()))
+			entity.setUrl(fromDto.getDetailUrl());
 		return entity;
 	}
 
@@ -339,4 +343,48 @@ public class TaskEventsDao extends BaseDao<TaskEventsDo, TaskEventsDto> {
 		return String.valueOf(diffinHrs);
 
 	}
+	
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<TaskEventsDo> checkIfTaskInstanceExists(String instanceId) {
+		Query query = this.getEntityManager()
+				.createQuery("select te from TaskEventsDo te where te.taskEventsDoPK.eventId =:instanceId");
+		query.setParameter("instanceId", instanceId);
+		List<TaskEventsDo> taskEventsDos = (List<TaskEventsDo>) query.getResultList();
+		if (taskEventsDos.size() > 0) {
+			return taskEventsDos;
+
+		} else {
+			return null;
+		}
+
+	}
+	
+	
+	public String createTaskInstance(TaskEventsDto dto) {
+		System.err.println("[PMC][TaskEventsDao][createTaskInstance]initiated with " + dto);
+		
+		try {
+			this.create(dto);
+			return "SUCCESS";
+		} catch (Exception e) {
+			System.err.println("[PMC][TaskEventsDao][createTaskInstance][error] " + e.getMessage());
+		}
+		return "FAILURE";
+
+	}
+	
+	public String updateTaskInstance(TaskEventsDto dto) {
+		System.err.println("[PMC][TaskEventsDao][updateTaskInstance]initiated with " + dto);
+		try {
+			update(dto);
+			return "SUCCESS";
+		} catch (Exception e) {
+			System.err.println("[PMC][TaskEventsDao][updateTaskInstance][error] " + e.getMessage());
+		}
+		return "FAILURE";
+
+	}
+
 }

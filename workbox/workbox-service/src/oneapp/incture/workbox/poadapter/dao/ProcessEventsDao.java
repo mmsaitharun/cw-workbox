@@ -27,11 +27,11 @@ import oneapp.incture.workbox.pmc.dto.ProcessAgeingResponse;
 import oneapp.incture.workbox.pmc.dto.ProcessDetailsDto;
 import oneapp.incture.workbox.pmc.dto.ProcessDetailsResponse;
 import oneapp.incture.workbox.pmc.dto.ReportAgingDto;
-import oneapp.incture.workbox.pmc.dto.ResponseMessage;
 import oneapp.incture.workbox.pmc.dto.UserDetailsDto;
 import oneapp.incture.workbox.pmc.dto.UserProcessDetailRequestDto;
 import oneapp.incture.workbox.pmc.entity.ProcessConfigDo;
 import oneapp.incture.workbox.poadapter.dto.ProcessEventsDto;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 import oneapp.incture.workbox.poadapter.entity.ProcessEventsDo;
 import oneapp.incture.workbox.util.ExecutionFault;
 import oneapp.incture.workbox.util.InvalidInputFault;
@@ -661,4 +661,26 @@ public class ProcessEventsDao extends BaseDao<ProcessEventsDo, ProcessEventsDto>
 		}
 		return null;
 	}
+	
+	public String createProcessInstance(ProcessEventsDto dto) {
+		  System.err.println("[PMC][ProcessEventsDao][createProcessInstance]initiated with " + dto);
+			try {
+				create(dto);
+				return "SUCCESS";
+			} catch (Exception e) {
+				System.err.println("[PMC][ProcessEventsDao][createProcessInstance][error] " + e.getMessage());
+			}
+			return "FAILURE";
+		}
+
+		public String updateProcessInstance(ProcessEventsDto dto) {
+			System.err.println("[PMC][ProcessEventsDao][updateProcessInstance]initiated with " + dto);
+			try {
+				update(dto);
+				return "SUCCESS";
+			} catch (Exception e) {
+				System.err.println("[PMC][ProcessEventsDao][updateProcessInstance][error] " + e.getMessage());
+			}
+			return "FAILURE";
+		}
 }

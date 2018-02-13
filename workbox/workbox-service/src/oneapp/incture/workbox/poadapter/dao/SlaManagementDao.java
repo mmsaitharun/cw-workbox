@@ -6,12 +6,12 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import oneapp.incture.workbox.pmc.dto.ResponseMessage;
 import oneapp.incture.workbox.pmc.dto.SlaListDto;
 import oneapp.incture.workbox.pmc.dto.SlaManagementDto;
 import oneapp.incture.workbox.pmc.dto.SlaProcessNameListDto;
 import oneapp.incture.workbox.pmc.entity.ProcessConfigDo;
 import oneapp.incture.workbox.pmc.entity.SlaManagementDo;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 import oneapp.incture.workbox.util.ExecutionFault;
 import oneapp.incture.workbox.util.InvalidInputFault;
 import oneapp.incture.workbox.util.NoResultFault;
@@ -242,13 +242,7 @@ public class SlaManagementDao extends BaseDao<SlaManagementDo, SlaManagementDto>
 					query.setParameter("urgentSla", null);
 				}
 
-				try{
-					this.getEntityManager().getTransaction().begin();
-					query.executeUpdate();
-					this.getEntityManager().getTransaction().commit();
-				} catch (Exception e){
-					System.err.println("Exception : "+e.getMessage());
-				}
+				query.executeUpdate();
 				}
 				else{
 				response.setMessage("Newly added item is sent as update");
@@ -272,13 +266,7 @@ public class SlaManagementDao extends BaseDao<SlaManagementDo, SlaManagementDto>
 			query.setParameter("sla", null);
 		}
 		query.setParameter("processName", dto.getProcessName());
-		try{
-			this.getEntityManager().getTransaction().begin();
-			query.executeUpdate();
-			this.getEntityManager().getTransaction().commit();
-		} catch (Exception e){
-			System.err.println("Exception : "+e.getMessage());
-		}
+		query.executeUpdate();
 		return "SUCCESS";
 	}
 }

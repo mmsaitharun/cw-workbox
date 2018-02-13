@@ -22,7 +22,7 @@ public class SubstitutionManagementFacadeServiceLocator extends org.apache.axis.
     }
 
     // Use to get a proxy class for SubstitutionManagementFacadePort
-    private java.lang.String SubstitutionManagementFacadePort_address = "http://incturecwd:50000/SubstitutionManagementFacadeService/SubstitutionManagementFacade";
+    private java.lang.String SubstitutionManagementFacadePort_address = "http://115.110.225.49:50000/SubstitutionManagementFacadeService/SubstitutionManagementFacade";
 
     public java.lang.String getSubstitutionManagementFacadePortAddress() {
         return SubstitutionManagementFacadePort_address;

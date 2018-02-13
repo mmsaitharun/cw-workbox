@@ -61,9 +61,33 @@ public interface PMCConstant {
 	String DAYS = "days";
 	String HOURS = "hours";
 	String MINUTES = "minute";
-	
+
 	/* User Id And Password For Wsdl Access */
-	
+
 	String WBuserId = "INC00695";
 	String WBpassword = "Password@2";
+
+
+	/*   Add for consuming  odata services */
+
+	String HTTP_METHOD_PUT = "PUT";
+	String HTTP_METHOD_POST = "POST";
+	String HTTP_METHOD_GET = "GET";
+
+	String HTTP_HEADER_CONTENT_TYPE = "Content-Type";
+	String HTTP_HEADER_ACCEPT = "Accept";
+
+	String APPLICATION_JSON = "application/json";
+	String APPLICATION_XML = "application/xml";
+	String APPLICATION_ATOM_XML = "application/atom+xml";
+	String APPLICATION_FORM = "application/x-www-form-urlencoded";
+	String METADATA = "$metadata";
+	String COUNT = "$count";
+	
+	String SEPARATOR = "/";
+
+	boolean PRINT_RAW_CONTENT = true;
+
+	String ECC_URL ="http://sthcigwdq1.kaust.edu.sa:8005/sap/opu/odata/IWPGW/TASKPROCESSING;mo;v=2/";
+	String BPM_URL ="http://10.120.28.214:50000/bpmodata/tasks.svc/";
 }

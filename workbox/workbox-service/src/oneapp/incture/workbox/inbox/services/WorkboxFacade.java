@@ -12,8 +12,8 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
 
+import oneapp.incture.workbox.consumers.services.ConsumeBPMDataFacadeLocal;
 import oneapp.incture.workbox.inbox.dao.WorkBoxDao;
-import oneapp.incture.workbox.inbox.dto.ResponseMessage;
 import oneapp.incture.workbox.inbox.dto.TrackingResponse;
 import oneapp.incture.workbox.inbox.dto.WorkBoxDto;
 import oneapp.incture.workbox.inbox.dto.WorkboxResponseDto;
@@ -21,6 +21,7 @@ import oneapp.incture.workbox.pmc.dto.TasksCountDTO;
 import oneapp.incture.workbox.pmc.services.EntityManagerProviderLocal;
 import oneapp.incture.workbox.pmc.wsdlconsumers.CustomAttributesConsumer;
 import oneapp.incture.workbox.pmc.wsdlconsumers.UMEManagementEngineConsumer;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 import oneapp.incture.workbox.util.NoResultFault;
 import oneapp.incture.workbox.util.PMCConstant;
 import oneapp.incture.workbox.util.ServicesUtil;
@@ -34,17 +35,21 @@ public class WorkboxFacade implements WorkboxFacadeLocal {
 
 	/*@WebServiceRef(name="UMEUserManagementFacadeService")
 	UMEUserManagementFacadeService umeService;
-	
+
 	@WebServiceRef(name="CustomAttributesServiceService")
 	CustomAttributesServiceService customAttribute;*/
-	
+
 	UMEManagementEngineConsumer umeConsumer = null;
 	CustomAttributesConsumer customAttributes = null;
 
 	@EJB
 	EntityManagerProviderLocal em;
-	
-	
+
+
+	@EJB
+	ConsumeBPMDataFacadeLocal bpmLocal;
+
+
 	public WorkboxFacade() {
 	}
 
@@ -52,12 +57,28 @@ public class WorkboxFacade implements WorkboxFacadeLocal {
 	public String sayHello(){
 		return "Hello From EJB!";
 	}
-	
+
 	@Override
 	public WorkboxResponseDto getWorkboxFilterData(String processName, String requestId, String createdBy,
 			String createdAt, String status, Integer skipCount, Integer maxCount, Integer page, String orderBy,
 			String orderType) {
-		System.err.println("[PMC][WorkBoxFacade][getWorkboxFilterData] method invoked ");
+	//	System.err.println("[PMC][WorkBoxFacade][getWorkboxFilterData] method invoked ");
+		try
+		{
+			new Thread(new Runnable() {    //still not allowed - but it works
+				public void run() {
+					//out.println is not a best practice either...
+					System.err.println("Hello World: ");
+					bpmLocal.getDataFromOdata("6000847", "india123","Murphy User","COMPLETED" );
+				}
+			}).start();
+
+		}
+		catch(Exception e)
+		{
+			System.err.println("my thread interrupted because"+e.getMessage());
+		}
+
 		customAttributes = new CustomAttributesConsumer();
 		umeConsumer = new UMEManagementEngineConsumer();
 		WorkboxResponseDto workboxResponseDto = new WorkboxResponseDto();
@@ -65,7 +86,7 @@ public class WorkboxFacade implements WorkboxFacadeLocal {
 		String taskOwner = null;
 		taskOwner = umeConsumer.getLoggedInUser().getUserId(); 
 		if (!ServicesUtil.isEmpty(taskOwner)) {
-			System.err.println("[PMC][WorkBoxFacade][getWorkboxFilterData][getLoggedInUser] " + taskOwner);
+		//	System.err.println("[PMC][WorkBoxFacade][getWorkboxFilterData][getLoggedInUser] " + taskOwner);
 			if (taskOwner.equals(umeConsumer.getLoggedInUser().getUserId())) {
 				SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("dd-MMM-yy hh:mm:ss a");
 				String dataQuery = "SELECT pe.REQUEST_ID AS REQUEST_ID, pe.NAME AS PROCESS_NAME ,te.EVENT_ID AS TASK_ID, te.DESCRIPTION AS DESCRIPTION, te.NAME AS TASK_NAME, te.SUBJECT AS TASK_SUBJECT, pe.STARTED_BY_DISP AS STARTED_BY, te.CREATED_AT AS TASK_CREATED_AT, te.STATUS AS TASK_STATUS,te.CUR_PROC AS CUR_PROC,ts.SLA AS SLA, te.PROCESS_ID AS PROCESS_ID, te.URL AS URL,te.COMP_DEADLINE AS SLA_DUE_DATE, Te.FORWARDED_BY AS FORWARDED_BY, Te.FORWARDED_AT AS FORWARDED_AT, Pct.PROCESS_DISPLAY_NAME AS PROCESS_DISPLAY_NAME FROM TASK_EVENTS te LEFT JOIN PROCESS_CONFIG_TB Pct ON TE.PROC_NAME = PCT.PROCESS_NAME LEFT JOIN TASK_SLA ts ON te.NAME = ts.TASK_DEF, PROCESS_EVENTS pe, TASK_OWNERS tw WHERE pe.PROCESS_ID = te.PROCESS_ID AND tw.EVENT_ID = te.EVENT_ID AND pe.STATUS = 'IN_PROGRESS'";
@@ -107,7 +128,7 @@ public class WorkboxFacade implements WorkboxFacadeLocal {
 
 				String countQuery = " SELECT  COUNT(*) AS COUNT FROM TASK_EVENTS te, PROCESS_EVENTS pe, TASK_OWNERS tw WHERE pe.PROCESS_ID = te.PROCESS_ID AND tw.EVENT_ID = te.EVENT_ID AND pe.STATUS = 'IN_PROGRESS'"
 						+ query;
-				System.err.println("[PMC][WorkBoxFacade][getWorkboxFilterData][countQuery]" + countQuery);
+			//	System.err.println("[PMC][WorkBoxFacade][getWorkboxFilterData][countQuery]" + countQuery);
 				Query cq = em.getEntityManager().createNativeQuery(countQuery.trim(), "workBoxCountResult");
 				BigDecimal count = new BigDecimal((Long) cq.getSingleResult());
 
@@ -142,7 +163,7 @@ public class WorkboxFacade implements WorkboxFacadeLocal {
 
 				}
 
-				System.err.println("[PMC][WorkBoxFacade][getWorkboxFilterData][query]" + query);
+			//	System.err.println("[PMC][WorkBoxFacade][getWorkboxFilterData][query]" + query);
 
 				dataQuery = dataQuery + query;
 
@@ -150,26 +171,26 @@ public class WorkboxFacade implements WorkboxFacadeLocal {
 						&& skipCount >= 0) {
 					int first = skipCount;
 					int last = maxCount;
-					
+
 					/* Commented for Pagination in HANA */
-//					q.setFirstResult(first);
-//					q.setMaxResults(last);
-					
+					//					q.setFirstResult(first);
+					//					q.setMaxResults(last);
+
 					dataQuery += " LIMIT "+last+" OFFSET "+first+"";
 				}
 				if (!ServicesUtil.isEmpty(page) && page > 0) {
 					int first = (page - 1) * PMCConstant.PAGE_SIZE;
 					int last = PMCConstant.PAGE_SIZE;
-					
+
 					/* Commented for Pagination in HANA */
-//					q.setFirstResult(first);
-//					q.setMaxResults(last);
-					
+					//					q.setFirstResult(first);
+					//					q.setMaxResults(last);
+
 					dataQuery += " LIMIT "+last+" OFFSET "+first+"";
-					
+
 				}
-				
-				System.err.println("[PMC][WorkBoxFacade][getWorkboxFilterData][dataQuery]" + dataQuery);
+
+			//	System.err.println("[PMC][WorkBoxFacade][getWorkboxFilterData][dataQuery]" + dataQuery);
 				Query q = em.getEntityManager().createNativeQuery(dataQuery.trim(), "workBoxResults");
 
 				@SuppressWarnings("unchecked")
@@ -200,7 +221,6 @@ public class WorkboxFacade implements WorkboxFacadeLocal {
 						workBoxDto.setSlaDisplayDate(obj[13] == null ? null : simpleDateFormat1.format(ServicesUtil.resultAsDate(obj[13])));
 						workBoxDto.setDetailURL(obj[12] == null ? null : ((String) obj[12]));
 						if (!ServicesUtil.isEmpty(obj[13]) && !ServicesUtil.isEmpty(obj[7])) {
-							System.err.println("[PMC][WorkBoxFacade][getWorkboxFilterData][ created]" + obj[7]);
 							Calendar created = ServicesUtil.timeStampToCal(obj[7]);
 							Calendar slaDate = ServicesUtil.timeStampToCal(obj[13]);
 							String timeLeftString = ServicesUtil.getSLATimeLeft(slaDate);
@@ -241,8 +261,8 @@ public class WorkboxFacade implements WorkboxFacadeLocal {
 		return workboxResponseDto;
 
 	}
-	
-	
+
+
 	@Override
 	public WorkboxResponseDto getWorkboxCompletedFilterData(String processName, String requestId, String createdBy, String createdAt, String completedAt, String period, Integer skipCount, Integer maxCount, Integer page) {
 		umeConsumer = new UMEManagementEngineConsumer();
@@ -251,8 +271,8 @@ public class WorkboxFacade implements WorkboxFacadeLocal {
 		userId = umeConsumer.getLoggedInUser().getUserId();
 		return dao.getWorkboxCompletedFilterData(userId, processName, requestId, createdBy, createdAt, completedAt, period, skipCount, maxCount, page);
 	}
-	
-	
+
+
 	@Override
 	public TrackingResponse getTrackingResults() {
 
@@ -262,9 +282,9 @@ public class WorkboxFacade implements WorkboxFacadeLocal {
 		String userId = null;
 		userId = umeConsumer.getLoggedInUser().getUserId();
 		DateFormat newDf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		
+
 		if(!ServicesUtil.isEmpty(userId)){
-			
+
 			BigDecimal compOnSlaCount = null;
 			BigDecimal compOffSlaCount = null;
 			BigDecimal inProgOnSlaCount = null;
@@ -286,10 +306,10 @@ public class WorkboxFacade implements WorkboxFacadeLocal {
 
 			System.err.println("Completed off Sla Count : " + compOffSlaCount);
 			System.err.println("Completed on Sla Count : " + compOnSlaCount);
-			
+
 			Date currDate = new Date();
 			//DateFormat df = new SimpleDateFormat("dd-MMM-yy hh:mm:ss a");
-			
+
 
 			String inProgressCountQry1 = "SELECT COUNT(DISTINCT(TE.EVENT_ID)) AS COUNT " +
 					"FROM TASK_EVENTS TE " +
@@ -301,11 +321,11 @@ public class WorkboxFacade implements WorkboxFacadeLocal {
 					"AND TW.TASK_OWNER ='"+userId+"')) " +
 					//"AND (TO_DATE('"+df.format(currDate)+"', 'DD/MM/YY hh:mi:ss AM') > TE.COMP_DEADLINE)";
 					"AND ('"+newDf.format(currDate)+"' > to_seconddate(TE.COMP_DEADLINE))";
-			
+
 			Query resInProgressCountQry1 = em.getEntityManager().createNativeQuery(inProgressCountQry1, "countResult");
 			inProgOffSlaCount = new BigDecimal((Long) resInProgressCountQry1.getSingleResult());
 			System.err.println("[pmc][tracking] : "+inProgOnSlaCount);
-			
+
 			String inProgressCountQry2 = "SELECT COUNT(DISTINCT(TE.EVENT_ID)) AS COUNT " +
 					"FROM TASK_EVENTS TE " +
 					"JOIN TASK_OWNERS TW " +
@@ -315,11 +335,11 @@ public class WorkboxFacade implements WorkboxFacadeLocal {
 					"OR (TE.STATUS     = 'READY' " +
 					"AND TW.TASK_OWNER ='"+userId+"')) " +
 					"AND ('"+newDf.format(currDate)+"'  < add_days(to_seconddate(TE.COMP_DEADLINE), -1))";
-			
+
 			Query resInProgressCountQry2 = em.getEntityManager().createNativeQuery(inProgressCountQry2, "countResult");
 			inProgOnSlaCount = new BigDecimal((Long) resInProgressCountQry2.getSingleResult());
 			System.err.println("[pmc][tracking] : "+inProgOnSlaCount);
-			
+
 			String inProgressApproching = "SELECT COUNT(DISTINCT(TE.EVENT_ID)) AS COUNT " +
 					"FROM TASK_EVENTS TE " +
 					"JOIN TASK_OWNERS TW " +
@@ -329,14 +349,14 @@ public class WorkboxFacade implements WorkboxFacadeLocal {
 					"OR (TE.STATUS     = 'READY' " +
 					"AND TW.TASK_OWNER ='"+userId+"')) " +
 					"AND ('"+newDf.format(currDate)+"' > add_days(to_seconddate(TE.COMP_DEADLINE), - 1)) AND ('"+newDf.format(currDate)+"' <= to_seconddate(TE.COMP_DEADLINE))";
-			
+
 			Query resInProgressApproaching = em.getEntityManager().createNativeQuery(inProgressApproching, "countResult");
 			inProgApproachingCount = new BigDecimal((Long) resInProgressApproaching.getSingleResult());
 			System.err.println("[pmc][tracking] : "+inProgApproachingCount);
 
 			if ((!ServicesUtil.isEmpty(compOnSlaCount) && (!ServicesUtil.isEmpty(compOffSlaCount)
 					&& (!ServicesUtil.isEmpty(inProgOnSlaCount) && (!ServicesUtil.isEmpty(inProgOffSlaCount)))))) {
-				
+
 				TasksCountDTO resp = new TasksCountDTO();
 				resp.setStatus("Completed - Past Due");
 				resp.setCount(compOffSlaCount);
@@ -357,8 +377,8 @@ public class WorkboxFacade implements WorkboxFacadeLocal {
 				resp4.setStatus("In Progress - Approaching");
 				resp4.setCount(inProgApproachingCount);
 				responseList.add(resp4);
-				
-				
+
+
 				response.setTasksCount(responseList);
 				respMessage.setMessage("Tasks Count Sent Successfully");
 				respMessage.setStatus("Success");
@@ -377,7 +397,7 @@ public class WorkboxFacade implements WorkboxFacadeLocal {
 			response.setResponseMessage(respMessage);
 		}
 		return response;
-		
+
 	}
 
 }

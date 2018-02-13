@@ -2,8 +2,8 @@ package oneapp.incture.workbox.pmc.dto.responses;
 
 import java.util.List;
 
-import oneapp.incture.workbox.inbox.dto.ResponseMessage;
 import oneapp.incture.workbox.pmc.dto.WorkloadRangeDto;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 
 public class WorkloadRangeResponse {
 

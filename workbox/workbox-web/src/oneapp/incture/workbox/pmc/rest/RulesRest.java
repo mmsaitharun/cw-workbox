@@ -1,5 +1,7 @@
 package oneapp.incture.workbox.pmc.rest;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -9,10 +11,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import oneapp.incture.workbox.pmc.dto.ResponseMessage;
-import oneapp.incture.workbox.pmc.dto.RuleManagementRequestDto;
-import oneapp.incture.workbox.pmc.dto.RuleManagementResponseDto;
+import oneapp.incture.workbox.pmc.dto.RuleManagementDto;
+import oneapp.incture.workbox.pmc.dto.responses.RuleManagementResponseDto;
 import oneapp.incture.workbox.pmc.services.RuleManagementFacadeLocal;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 
 
 @Path("/rules")
@@ -32,8 +34,8 @@ public class RulesRest {
 	
 	@POST
 	@Path("/updateRules")
-	public ResponseMessage submit(RuleManagementRequestDto ruleRequestDto){
-		return rule.onSubmit(ruleRequestDto);
+	public ResponseMessage submit(List<RuleManagementDto> dtoList){
+		return rule.onSubmit(dtoList);
 	}
 	
 }

@@ -2,6 +2,8 @@ package oneapp.incture.workbox.pmc.dto;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
+
 @XmlRootElement
 public class DownloadReportResponseDto {
 	private String base64;

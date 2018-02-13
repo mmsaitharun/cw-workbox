@@ -2,7 +2,7 @@ package oneapp.incture.workbox.pmc.e2e;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import oneapp.incture.workbox.pmc.dto.ResponseMessage;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 
 @XmlRootElement
 public class E2EProcessResponse {

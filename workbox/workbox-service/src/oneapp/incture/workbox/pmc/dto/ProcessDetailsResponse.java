@@ -6,13 +6,13 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import oneapp.incture.workbox.poadapter.dto.ProcessEventsDto;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 
 @XmlRootElement
 public class ProcessDetailsResponse extends PMCReportBaseDto {
 
 	private BigDecimal count;
 	private List<ProcessEventsDto> processEventsList;
-
 	private ResponseMessage responseMessage;
 
 	public List<ProcessEventsDto> getProcessEventsList() {

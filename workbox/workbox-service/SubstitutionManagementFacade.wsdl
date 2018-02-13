@@ -38,11 +38,9 @@
 <xs:element minOccurs="0" name="displayStatus" type="xs:string"/>
 <xs:element name="enabled" type="xs:boolean"/>
 <xs:element minOccurs="0" name="endDate" type="xs:dateTime"/>
-<xs:element minOccurs="0" name="endDateInString" type="xs:string"/>
 <xs:element minOccurs="0" name="mode" type="xs:string"/>
 <xs:element minOccurs="0" name="ruleId" type="xs:string"/>
 <xs:element minOccurs="0" name="startDate" type="xs:dateTime"/>
-<xs:element minOccurs="0" name="startDateInString" type="xs:string"/>
 <xs:element minOccurs="0" name="substitutedUser" type="xs:string"/>
 <xs:element minOccurs="0" name="substitutedUserName" type="xs:string"/>
 <xs:element minOccurs="0" name="substitutingUser" type="xs:string"/>

@@ -14,12 +14,11 @@ public class SingletonEMProvider {
 	
 	private SingletonEMProvider() {
 		EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("workbox_pu", DatabasePropertyProvider.getConnectionProperties("hana"));
-//		EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("workbox_pu", DatabasePropertyProvider.getConnectionProperties("oracle"));
 //		EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("workbox_pu");
 		this.entityManager = emFactory.createEntityManager();
 	}
 	
-	public static SingletonEMProvider getInstance() {
+	public static synchronized SingletonEMProvider getInstance() {
 		
 		if(emProvider == null) {
 			emProvider = new SingletonEMProvider();

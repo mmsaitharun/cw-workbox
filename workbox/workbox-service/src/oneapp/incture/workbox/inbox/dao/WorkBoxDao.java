@@ -12,9 +12,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import oneapp.incture.workbox.inbox.dto.ResponseMessage;
 import oneapp.incture.workbox.inbox.dto.WorkBoxDto;
 import oneapp.incture.workbox.inbox.dto.WorkboxResponseDto;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 import oneapp.incture.workbox.util.NoResultFault;
 import oneapp.incture.workbox.util.PMCConstant;
 import oneapp.incture.workbox.util.ServicesUtil;
@@ -75,9 +75,8 @@ public class WorkBoxDao {
 					calendar.add(Calendar.DAY_OF_MONTH, -(PMCConstant.COMPLETED_RANGE - 1));
 					startDate = ServicesUtil.setInitialTime(calendar.getTime());
 					endDate = new Date();
-//					DateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yy hh:mm:ss a");
-					DateFormat newDf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-					query = query + " AND te.COMPLETED_AT between '" + newDf.format(startDate) + "' and '" + newDf.format(endDate) + "'";
+					DateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yy hh:mm:ss a");
+					query = query + " AND te.COMPLETED_AT between '" + dateFormatter.format(startDate) + "' and '" + dateFormatter.format(endDate) + "'";
 				}
 
 

@@ -1,5 +1,6 @@
 package oneapp.incture.workbox.pmc.services;
 
+
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -35,7 +36,6 @@ public class EntityManagerProvider implements EntityManagerProviderLocal {
 	@PersistenceContext(type = PersistenceContextType.EXTENDED)
 	public EntityManager getEntityManager() {
 		EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("workbox_pu", DatabasePropertyProvider.getConnectionProperties("hana"));
-//		EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("workbox_pu");
 		EntityManager em = emFactory.createEntityManager();
 //		return SingletonEMProvider.getInstance().entityManager;
 		return em;
@@ -105,4 +105,7 @@ public class EntityManagerProvider implements EntityManagerProviderLocal {
 		List<?> returnList = query.getResultList();
 		return returnList;
 	}
+	
+
+
 }

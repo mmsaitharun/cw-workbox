@@ -12,10 +12,10 @@ import oneapp.incture.workbox.pmc.dao.CollaborationDao;
 import oneapp.incture.workbox.pmc.dto.CollaborationDto;
 import oneapp.incture.workbox.pmc.dto.CollaborationMessagesDto;
 import oneapp.incture.workbox.pmc.dto.CollaborationNotificationDto;
-import oneapp.incture.workbox.pmc.dto.CollaborationResponseDto;
-import oneapp.incture.workbox.pmc.dto.NotificationResponseDto;
-import oneapp.incture.workbox.pmc.dto.ResponseMessage;
+import oneapp.incture.workbox.pmc.dto.responses.CollaborationResponseDto;
+import oneapp.incture.workbox.pmc.dto.responses.NotificationResponseDto;
 import oneapp.incture.workbox.pmc.wsdlconsumers.UMEManagementEngineConsumer;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 import oneapp.incture.workbox.util.PMCConstant;
 import oneapp.incture.workbox.util.ServicesUtil;
 

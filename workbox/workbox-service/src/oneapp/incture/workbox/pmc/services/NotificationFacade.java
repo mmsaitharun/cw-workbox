@@ -19,8 +19,8 @@ import javax.persistence.Query;
 import oneapp.incture.workbox.pmc.dto.MailRequestDto;
 import oneapp.incture.workbox.pmc.dto.RemainderDto;
 import oneapp.incture.workbox.pmc.dto.RemainderMailDto;
-import oneapp.incture.workbox.pmc.dto.ResponseMessage;
 import oneapp.incture.workbox.pmc.wsdlconsumers.UMEManagementEngineConsumer;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 import oneapp.incture.workbox.util.PMCConstant;
 import oneapp.incture.workbox.util.ServicesUtil;
 

@@ -47,6 +47,8 @@ public class TaskOwnersDo implements BaseDo, Serializable {
 	@Column(name = "IS_PROCESSED")
 	private Boolean isProcessed;
 	
+	@Column(name = "IS_SUBSTITUTED")
+	private Boolean isSubstituted;
 	
 	@Column(name = "TASK_OWNER_DISP", length = 100)
 	private String taskOwnerDisplayName;
@@ -77,11 +79,20 @@ public class TaskOwnersDo implements BaseDo, Serializable {
 	public void setIsProcessed(Boolean isProcessed) {
 		this.isProcessed = isProcessed;
 	}
+	
+	public Boolean getIsSubstituted() {
+		return isSubstituted;
+	}
+
+	public void setIsSubstituted(Boolean isSubstituted) {
+		this.isSubstituted = isSubstituted;
+	}
+
 
 	@Override
 	public String toString() {
-		return "TaskOwnersDo [taskOwnersDoPK=" + taskOwnersDoPK + ", isProcessed=" + isProcessed
-				+ ", taskOwnerDisplayName=" + taskOwnerDisplayName + ", ownerEmail=" + ownerEmail + "]";
+		return "TaskOwnersDo [taskOwnersDoPK=" + taskOwnersDoPK + ", isProcessed=" + isProcessed + ", isSubstituted="
+				+ isSubstituted + ", taskOwnerDisplayName=" + taskOwnerDisplayName + ", ownerEmail=" + ownerEmail + "]";
 	}
 
 	public String getTaskOwnerDisplayName() {

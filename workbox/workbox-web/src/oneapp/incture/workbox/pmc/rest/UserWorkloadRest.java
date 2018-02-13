@@ -7,12 +7,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import oneapp.incture.workbox.pmc.dto.TaskCountDto;
 import oneapp.incture.workbox.pmc.dto.UserProcessDetailRequestDto;
 import oneapp.incture.workbox.pmc.dto.UserSearchRequestDto;
-import oneapp.incture.workbox.pmc.dto.UserTaskStatusResponseDto;
-import oneapp.incture.workbox.pmc.dto.UserWorkloadResponseDto;
+import oneapp.incture.workbox.pmc.dto.responses.UserTaskStatusResponseDto;
+import oneapp.incture.workbox.pmc.dto.responses.UserWorkloadResponseDto;
 import oneapp.incture.workbox.pmc.services.UserWorkloadFacadeLocal;
-import oneapp.incture.workbox.poadapter.dto.TaskCountDto;
 
 @Path("/userload")
 @Produces({ MediaType.APPLICATION_JSON })

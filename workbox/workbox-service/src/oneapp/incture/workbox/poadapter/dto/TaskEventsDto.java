@@ -43,6 +43,7 @@ public class TaskEventsDto extends BaseDto {
 	private String slaDisplayDate;
 	private String sla;
 	private String origin;
+	private String detailUrl;
 	
 	public float getTimePercentCompleted() {
 		return timePercentCompleted;
@@ -290,7 +291,8 @@ public class TaskEventsDto extends BaseDto {
 				+ forwardedAt + ", forwardedBy=" + forwardedBy + ", forwardedAtInString=" + forwardedAtInString
 				+ ", urgentsla=" + urgentsla + ", timePercentCompleted=" + timePercentCompleted
 				+ ", timeLeftDisplayString=" + timeLeftDisplayString + ", isBreached=" + isBreached
-				+ ", slaDisplayDate=" + slaDisplayDate + ", sla=" + sla + ", origin=" + origin + "]";
+				+ ", slaDisplayDate=" + slaDisplayDate + ", sla=" + sla + ", origin=" + origin + ", detailUrl="
+				+ detailUrl + "]";
 	}
 
 	@Override
@@ -324,6 +326,14 @@ public class TaskEventsDto extends BaseDto {
 
 	public void setUrgentsla(String urgentsla) {
 		this.urgentsla = urgentsla;
+	}
+
+	public String getDetailUrl() {
+		return detailUrl;
+	}
+
+	public void setDetailUrl(String detailUrl) {
+		this.detailUrl = detailUrl;
 	}
 
 }

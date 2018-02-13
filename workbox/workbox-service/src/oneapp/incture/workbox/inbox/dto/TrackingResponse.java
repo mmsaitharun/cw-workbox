@@ -5,6 +5,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import oneapp.incture.workbox.pmc.dto.TasksCountDTO;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 
 @XmlRootElement
 public class TrackingResponse {

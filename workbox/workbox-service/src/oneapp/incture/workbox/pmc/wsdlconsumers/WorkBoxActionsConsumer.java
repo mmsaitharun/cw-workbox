@@ -16,7 +16,7 @@ import com.incture.pmc.poadapter.services.WorkBoxActionFacadeServiceLocator;
 
 import oneapp.incture.workbox.inbox.dto.WorkBoxActionDto;
 import oneapp.incture.workbox.inbox.dto.WorkBoxActionListDto;
-import oneapp.incture.workbox.inbox.dto.ResponseMessage;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 import oneapp.incture.workbox.util.PMCConstant;
 import oneapp.incture.workbox.util.ServicesUtil;
 

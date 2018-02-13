@@ -20,30 +20,18 @@ public class DatabasePropertyProvider {
 	
 	/* Hana-DB Values */
 	public final static String HANA_JDBC_DRIVER = "com.sap.db.jdbc.Driver";
-//	public final static String HANA_JDBC_URL = "jdbc:sap://localhost:30015/WORKBOX";
-	public final static String HANA_JDBC_URL = "jdbc:sap://vadbi4t.od.sap.biz:30015/WORKBOX";
-//	public final static String HANA_JDBC_URL = "jdbc:sap://vadbi01.nwtrial.od.sap.biz:30293/WORKBOX";
+	public final static String HANA_JDBC_URL = "jdbc:sap://localhost:30015/WORKBOX";
+//	public final static String HANA_JDBC_URL = "jdbc:sap://vadbi4t.od.sap.biz:30015/WORKBOX";
 	public final static String HANA_JDBC_USER = "WORKBOX";
 	public final static String HANA_JDBC_PASSWORD = "Incture1234567891012";
 	public final static Class<?> HANA_JDBC_PROVIDER_CLASS = org.eclipse.persistence.jpa.PersistenceProvider.class;
 	public final static String HANA_CACHE_SHARED_DEFAULT = "false";
 	
 	
-	/* Oracle-DB Values */
-	public final static String ORACLE_JDBC_DRIVER = "oracle.jdbc.driver.OracleDriver";
-	public final static String ORACLE_JDBC_URL = "jdbc:oracle:thin:@192.168.5.90:1521:xe";
-	public final static String ORACLE_JDBC_USER = "DBUSER";
-	public final static String ORACLE_JDBC_PASSWORD = "DBUSER";
-	public final static Class<?> ORACLE_JDBC_PROVIDER_CLASS = org.eclipse.persistence.jpa.PersistenceProvider.class;
-	public final static String ORACLE_CACHE_SHARED_DEFAULT = "false";
-	
-	
 	public static Map<String, Object> getConnectionProperties(String DB) {
 		DBPropertiesDto propDto = null;
 		if(DB.toLowerCase().contains("hana")) {
 			propDto = DatabasePropertyProvider.getHanaProperties();
-		} else if(DB.toLowerCase().contains("oracle")){
-			propDto = DatabasePropertyProvider.getOracleProperties();
 		}
 		properties = new HashMap<String, Object>();
 		properties.put(KEY_PROVIDER, propDto.getProvider());
@@ -68,17 +56,6 @@ public class DatabasePropertyProvider {
 		propDto.setJdbcUrl(DatabasePropertyProvider.HANA_JDBC_URL);
 		propDto.setUserId(DatabasePropertyProvider.HANA_JDBC_USER);
 		propDto.setPassword(DatabasePropertyProvider.HANA_JDBC_PASSWORD);
-		return propDto;
-	}
-	
-	private static DBPropertiesDto getOracleProperties(){
-		DBPropertiesDto propDto = new DBPropertiesDto();
-		propDto.setProvider(DatabasePropertyProvider.ORACLE_JDBC_PROVIDER_CLASS);
-		propDto.setCacheSharedDefault(DatabasePropertyProvider.ORACLE_CACHE_SHARED_DEFAULT);
-		propDto.setJdbcDriver(DatabasePropertyProvider.ORACLE_JDBC_DRIVER);
-		propDto.setJdbcUrl(DatabasePropertyProvider.ORACLE_JDBC_URL);
-		propDto.setUserId(DatabasePropertyProvider.ORACLE_JDBC_USER);
-		propDto.setPassword(DatabasePropertyProvider.ORACLE_JDBC_PASSWORD);
 		return propDto;
 	}
 }

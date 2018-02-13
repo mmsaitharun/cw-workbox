@@ -16,15 +16,11 @@ public class SubstitutionRuleDto  implements java.io.Serializable {
 
     private java.util.Calendar endDate;
 
-    private java.lang.String endDateInString;
-
     private java.lang.String mode;
 
     private java.lang.String ruleId;
 
     private java.util.Calendar startDate;
-
-    private java.lang.String startDateInString;
 
     private java.lang.String substitutedUser;
 
@@ -46,11 +42,9 @@ public class SubstitutionRuleDto  implements java.io.Serializable {
            java.lang.String displayStatus,
            boolean enabled,
            java.util.Calendar endDate,
-           java.lang.String endDateInString,
            java.lang.String mode,
            java.lang.String ruleId,
            java.util.Calendar startDate,
-           java.lang.String startDateInString,
            java.lang.String substitutedUser,
            java.lang.String substitutedUserName,
            java.lang.String substitutingUser,
@@ -61,11 +55,9 @@ public class SubstitutionRuleDto  implements java.io.Serializable {
            this.displayStatus = displayStatus;
            this.enabled = enabled;
            this.endDate = endDate;
-           this.endDateInString = endDateInString;
            this.mode = mode;
            this.ruleId = ruleId;
            this.startDate = startDate;
-           this.startDateInString = startDateInString;
            this.substitutedUser = substitutedUser;
            this.substitutedUserName = substitutedUserName;
            this.substitutingUser = substitutingUser;
@@ -156,26 +148,6 @@ public class SubstitutionRuleDto  implements java.io.Serializable {
 
 
     /**
-     * Gets the endDateInString value for this SubstitutionRuleDto.
-     * 
-     * @return endDateInString
-     */
-    public java.lang.String getEndDateInString() {
-        return endDateInString;
-    }
-
-
-    /**
-     * Sets the endDateInString value for this SubstitutionRuleDto.
-     * 
-     * @param endDateInString
-     */
-    public void setEndDateInString(java.lang.String endDateInString) {
-        this.endDateInString = endDateInString;
-    }
-
-
-    /**
      * Gets the mode value for this SubstitutionRuleDto.
      * 
      * @return mode
@@ -232,26 +204,6 @@ public class SubstitutionRuleDto  implements java.io.Serializable {
      */
     public void setStartDate(java.util.Calendar startDate) {
         this.startDate = startDate;
-    }
-
-
-    /**
-     * Gets the startDateInString value for this SubstitutionRuleDto.
-     * 
-     * @return startDateInString
-     */
-    public java.lang.String getStartDateInString() {
-        return startDateInString;
-    }
-
-
-    /**
-     * Sets the startDateInString value for this SubstitutionRuleDto.
-     * 
-     * @param startDateInString
-     */
-    public void setStartDateInString(java.lang.String startDateInString) {
-        this.startDateInString = startDateInString;
     }
 
 
@@ -394,9 +346,6 @@ public class SubstitutionRuleDto  implements java.io.Serializable {
             ((this.endDate==null && other.getEndDate()==null) || 
              (this.endDate!=null &&
               this.endDate.equals(other.getEndDate()))) &&
-            ((this.endDateInString==null && other.getEndDateInString()==null) || 
-             (this.endDateInString!=null &&
-              this.endDateInString.equals(other.getEndDateInString()))) &&
             ((this.mode==null && other.getMode()==null) || 
              (this.mode!=null &&
               this.mode.equals(other.getMode()))) &&
@@ -406,9 +355,6 @@ public class SubstitutionRuleDto  implements java.io.Serializable {
             ((this.startDate==null && other.getStartDate()==null) || 
              (this.startDate!=null &&
               this.startDate.equals(other.getStartDate()))) &&
-            ((this.startDateInString==null && other.getStartDateInString()==null) || 
-             (this.startDateInString!=null &&
-              this.startDateInString.equals(other.getStartDateInString()))) &&
             ((this.substitutedUser==null && other.getSubstitutedUser()==null) || 
              (this.substitutedUser!=null &&
               this.substitutedUser.equals(other.getSubstitutedUser()))) &&
@@ -444,9 +390,6 @@ public class SubstitutionRuleDto  implements java.io.Serializable {
         if (getEndDate() != null) {
             _hashCode += getEndDate().hashCode();
         }
-        if (getEndDateInString() != null) {
-            _hashCode += getEndDateInString().hashCode();
-        }
         if (getMode() != null) {
             _hashCode += getMode().hashCode();
         }
@@ -455,9 +398,6 @@ public class SubstitutionRuleDto  implements java.io.Serializable {
         }
         if (getStartDate() != null) {
             _hashCode += getStartDate().hashCode();
-        }
-        if (getStartDateInString() != null) {
-            _hashCode += getStartDateInString().hashCode();
         }
         if (getSubstitutedUser() != null) {
             _hashCode += getSubstitutedUser().hashCode();
@@ -512,13 +452,6 @@ public class SubstitutionRuleDto  implements java.io.Serializable {
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("endDateInString");
-        elemField.setXmlName(new javax.xml.namespace.QName("", "endDateInString"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
-        elemField.setMinOccurs(0);
-        elemField.setNillable(false);
-        typeDesc.addFieldDesc(elemField);
-        elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("mode");
         elemField.setXmlName(new javax.xml.namespace.QName("", "mode"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
@@ -536,13 +469,6 @@ public class SubstitutionRuleDto  implements java.io.Serializable {
         elemField.setFieldName("startDate");
         elemField.setXmlName(new javax.xml.namespace.QName("", "startDate"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "dateTime"));
-        elemField.setMinOccurs(0);
-        elemField.setNillable(false);
-        typeDesc.addFieldDesc(elemField);
-        elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("startDateInString");
-        elemField.setXmlName(new javax.xml.namespace.QName("", "startDateInString"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setMinOccurs(0);
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);

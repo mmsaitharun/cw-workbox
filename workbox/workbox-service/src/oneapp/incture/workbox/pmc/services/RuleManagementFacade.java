@@ -5,11 +5,10 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-import oneapp.incture.workbox.pmc.dto.ResponseMessage;
 import oneapp.incture.workbox.pmc.dto.RuleManagementDto;
-import oneapp.incture.workbox.pmc.dto.RuleManagementRequestDto;
-import oneapp.incture.workbox.pmc.dto.RuleManagementResponseDto;
+import oneapp.incture.workbox.pmc.dto.responses.RuleManagementResponseDto;
 import oneapp.incture.workbox.poadapter.dao.RuleManagementDao;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 import oneapp.incture.workbox.util.PMCConstant;
 import oneapp.incture.workbox.util.ServicesUtil;
 
@@ -45,8 +44,8 @@ public class RuleManagementFacade implements RuleManagementFacadeLocal {
 	}
 
 	@Override
-	public ResponseMessage onSubmit(RuleManagementRequestDto ruleRequestDto) {
-		return new RuleManagementDao(em.getEntityManager()).submitRules(ruleRequestDto);
+	public ResponseMessage onSubmit(List<RuleManagementDto> dtoList) {
+		return new RuleManagementDao(em.getEntityManager()).submitRules(dtoList);
 	}
 	
 }

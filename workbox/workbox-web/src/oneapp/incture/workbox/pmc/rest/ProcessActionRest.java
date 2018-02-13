@@ -7,9 +7,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import oneapp.incture.workbox.pmc.dto.ResponseMessage;
 import oneapp.incture.workbox.pmc.dto.ProcessActionDto;
 import oneapp.incture.workbox.pmc.services.ProcessActionFacadeWsdlConsumerLocal;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 
 @Path("/processAction")
 @Produces({ MediaType.APPLICATION_JSON })

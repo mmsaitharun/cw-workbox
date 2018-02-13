@@ -1,5 +1,7 @@
 package oneapp.incture.workbox.util;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.text.DateFormat;
@@ -7,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -16,6 +19,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * Contains utility functions to be used by Services
@@ -69,6 +77,35 @@ public class ServicesUtil {
 		}
 		return false;
 	}
+	
+	public static boolean isEmpty(Element nd) {
+		if (nd == null) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean isEmpty(NamedNodeMap nd) {
+		if (nd == null || nd.getLength() == 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean isEmpty(Node nd) {
+		if (nd == null ) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean isEmpty(NodeList nd) {
+		if (nd == null || nd.getLength() == 0) {
+			return true;
+		}
+		return false;
+	}
+
 
 	public static String getCSV(Object... objs) {
 		if (!isEmpty(objs)) {
@@ -180,8 +217,8 @@ public class ServicesUtil {
 		Date date = null;
 		try {
 			if(!isEmpty(template)){
-			DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
-			date = formatter.parse(template);
+				DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+				date = formatter.parse(template);
 			}
 			//System.err.println("[PMC][WorkBoxFacade][resultAsDate][o]" + o + "[template]" + template + "[date]" + date + "yyyy-MM-dd hh:mm:ss.SSS");
 		} catch (ParseException e) {
@@ -367,7 +404,7 @@ public class ServicesUtil {
 		Calendar cal = Calendar.getInstance();
 		try {
 			DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
-			System.err.println("[PMC][ServicesUtil][timeStampToCal][obj]" + obj + "obj.toString()" + obj.toString());
+			//System.err.println("[PMC][ServicesUtil][timeStampToCal][obj]" + obj + "obj.toString()" + obj.toString());
 			cal.setTime(formatter.parse(obj.toString()));
 			return cal;
 		} catch (Exception e) {
@@ -375,7 +412,7 @@ public class ServicesUtil {
 		}
 		return null;
 	}
-	
+
 	public static Date dateResultAsDate(Object o) {
 		String template = "";
 		if (o instanceof Object[]) {
@@ -386,8 +423,8 @@ public class ServicesUtil {
 		Date date = null;
 		try {
 			if(!isEmpty(template)){
-			DateFormat formatter = new SimpleDateFormat("yyyy-MM-DD");
-			date = formatter.parse(template);
+				DateFormat formatter = new SimpleDateFormat("yyyy-MM-DD");
+				date = formatter.parse(template);
 			}
 			//System.err.println("[PMC][WorkBoxFacade][resultAsDate][o]" + o + "[template]" + template + "[date]" + date + "yyyy-MM-dd hh:mm:ss.SSS");
 		} catch (ParseException e) {
@@ -408,7 +445,7 @@ public class ServicesUtil {
 		}
 		return created;
 	}
-	
+
 	public static Calendar getNotifyByDate(Calendar created, String threshold) {
 		String[] sla = ((String) threshold).split("\\s+");
 		int thresCount = Integer.parseInt(sla[0]);
@@ -441,7 +478,7 @@ public class ServicesUtil {
 		}
 
 	}
-	
+
 	public static String getCompletedTimePassed(Calendar sla, Calendar completedAt) {
 
 		Calendar cal = Calendar.getInstance();
@@ -452,7 +489,7 @@ public class ServicesUtil {
 		System.err.println("date_time sla: "+sla);
 		System.err.println("date_time completedAt: "+completedAt);
 		System.err.println("date_time timePassed: "+timePassed);
-		
+
 		int seconds = (int) (timePassed / 1000) % 60;
 		int minutes = (int) ((timePassed / (1000 * 60)) % 60);
 		int hours = (int) ((timePassed / (1000 * 60 * 60)) % 24);
@@ -481,7 +518,7 @@ public class ServicesUtil {
 		calendar.set(Calendar.MILLISECOND, 0);
 		return calendar.getTime();
 	}
-	
+
 	public static MapResponseListDto generateMapDtoFromMap(Map<String, BigDecimal> map) {
 
 		MapResponseListDto returnResponse = new MapResponseListDto();
@@ -511,4 +548,65 @@ public class ServicesUtil {
 		returnResponse.setEntry(response);
 		return returnResponse;
 	}
+
+
+	public static String getDecryptedText(String encryptedText){
+		if(!isEmpty(encryptedText)){
+			byte[] decodedBytes = Base64.getDecoder().decode(encryptedText);
+			return new String(decodedBytes);
+		}
+		return null;
+	}
+
+	public static String getBasicAuth(String userName ,String password) {
+		String userpass = userName + ":" + password;
+		return "Basic "
+		+ javax.xml.bind.DatatypeConverter.printBase64Binary(userpass
+				.getBytes());
+	}
+
+
+	public static String convertInputStreamToString(InputStream inputStream){
+		try {
+			
+			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+			int nRead;
+			byte[] data = new byte[10000];
+			while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
+				buffer.write(data, 0, nRead);
+			}
+			
+			buffer.flush();
+			byte[] byteArray = buffer.toByteArray();
+			return new String(byteArray);
+
+		} catch (Exception e) {
+			System.err.println("[PMC][ServicesUtil][convertInputStreamToString][error]"+e.getMessage());
+		}
+		return null;
+	}
+	public static Date resultTAsDate(Object o)
+	{
+		Date date = null;
+		if(!isEmpty(o) && o.toString() != ""){
+			String template = "";
+			if (o instanceof Object[]) {
+				template = Arrays.asList((Object[]) o).toString();
+			} else {
+				template = String.valueOf(o);
+			}
+			try {
+				DateFormat formatterT = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS");
+				DateFormat newDf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+				date = newDf.parse(newDf.format(formatterT.parse(template)));
+				
+				
+					System.err.println("[PMC][WorkBoxFacade][resultAsDate][o]"+o+"[template]"+template+"[date]"+date+"yyyy-MM-dd hh:mm:ss.SSS");
+			} catch (Exception e) {
+				System.err.println("resultTAsDate " + e.getMessage());
+			}
+		}
+		return date;
+	}
 }
+

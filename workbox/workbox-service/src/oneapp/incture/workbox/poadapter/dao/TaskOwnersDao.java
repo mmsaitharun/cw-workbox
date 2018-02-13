@@ -12,14 +12,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import oneapp.incture.workbox.pmc.dto.AgingResponseDto;
 import oneapp.incture.workbox.pmc.dto.AgingTableDto;
 import oneapp.incture.workbox.pmc.dto.ReportAgingDto;
-import oneapp.incture.workbox.pmc.dto.ResponseMessage;
-import oneapp.incture.workbox.pmc.dto.TaskAgeingResponse;
+import oneapp.incture.workbox.pmc.dto.responses.TaskAgeingResponse;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 import oneapp.incture.workbox.poadapter.dto.TaskOwnersDto;
 import oneapp.incture.workbox.poadapter.entity.TaskOwnersDo;
 import oneapp.incture.workbox.poadapter.entity.TaskOwnersDoPK;
@@ -46,6 +48,8 @@ public class TaskOwnersDao extends BaseDao<TaskOwnersDo, TaskOwnersDto> {
 			taskOwnersDto.setTaskOwnerDisplayName(entity.getTaskOwnerDisplayName());
 		if (!ServicesUtil.isEmpty(entity.getOwnerEmail()))
 			taskOwnersDto.setOwnerEmail(entity.getOwnerEmail());
+		if (!ServicesUtil.isEmpty(entity.getIsSubstituted()))
+			taskOwnersDto.setIsSubstituted(entity.getIsSubstituted());
 		return taskOwnersDto;
 	}
 
@@ -64,6 +68,8 @@ public class TaskOwnersDao extends BaseDao<TaskOwnersDo, TaskOwnersDto> {
 			entity.setTaskOwnerDisplayName(fromDto.getTaskOwnerDisplayName());
 		if (!ServicesUtil.isEmpty(fromDto.getOwnerEmail()))
 			entity.setOwnerEmail(fromDto.getOwnerEmail());
+		if (!ServicesUtil.isEmpty(fromDto.getIsSubstituted()))
+			entity.setIsSubstituted(fromDto.getIsSubstituted());
 		return entity;
 	}
 
@@ -288,4 +294,132 @@ public class TaskOwnersDao extends BaseDao<TaskOwnersDo, TaskOwnersDto> {
 		}
 		return null;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public String deleteInstanceByOwner(String owner) {
+		//            System.err.println("[PMC][TaskOwnersDao][deleteInstanceByOwner]initiated with "+owner);
+		Query query = this.getEntityManager().createQuery("select te from TaskOwnersDo te where te.taskOwnersDoPK.taskOwner = :owner ");
+		query.setParameter("owner", owner);
+		List<TaskOwnersDo> processDos = (List<TaskOwnersDo>) query.getResultList();
+		//            System.err.println("[PMC][TaskOwnersDao][deleteInstanceByOwner][processDos] "+processDos);
+		try {
+			if(!ServicesUtil.isEmpty(processDos)){
+				for (TaskOwnersDo entity : processDos) {
+					delete(exportDto(entity));
+					//this.getEntityManager().remove(entity);
+
+				}
+				this.getEntityManager().flush();
+			}
+			return "SUCCESS";
+		} catch (Exception e) {
+			System.err.println("[PMC][TaskOwnersDao][deleteInstanceByOwner][error] " + e.getMessage());
+		}
+		return "FAILURE";
+	}
+
+	@SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public List<TaskOwnersDo> getInstanceByOwner(String owner) {
+		//            System.err.println("[PMC][TaskOwnersDao][getInstanceByOwner]initiated with "+owner);
+		try {
+			Query query = this.getEntityManager().createQuery("select te from TaskOwnersDo te where te.taskOwnersDoPK.taskOwner = :owner ");
+			query.setParameter("owner", owner);
+			List<TaskOwnersDo> processDos = (List<TaskOwnersDo>) query.getResultList();
+			//            System.err.println("[PMC][TaskOwnersDao][getInstanceByOwner][processDos] "+processDos);
+			if(!ServicesUtil.isEmpty(processDos)){
+				return processDos;
+			}
+		} catch (Exception e) {
+			System.err.println("[PMC][TaskOwnersDao][getInstanceByOwner][error] " + e.getMessage());
+		}
+		return null;
+	}
+
+	public String deleteNonExistingTasks( List<String> instanceList,String processor) {
+		//            System.err.println("[PMC][ConsumeODataFacade][Xpath][Xpath][deleteNonExistingTasks] method invoked with [processor]" + processor+"[instanceList]"+instanceList);
+		List<TaskOwnersDo> doList = getInstanceByOwner(processor);
+		//            System.err.println("[PMC][ConsumeODataFacade][Xpath][Xpath][deleteNonExistingTasks] method invoked with [doList]" + doList.size()+"[instanceListLength]"+instanceList.size());
+		if(!ServicesUtil.isEmpty(doList)){
+			for(TaskOwnersDo entity :doList){
+				if(!instanceList.contains(entity.getTaskOwnersDoPK().getEventId())){
+					if(deleteInstance(entity).equals("FAILURE")){
+						return "FAILURE";
+					}
+				}
+			}
+		}
+		return "SUCCESS";
+	}
+	
+	public String deleteInstance(TaskOwnersDo entity) {
+		//            System.err.println("[PMC][TaskOwnersDao][deleteInstance]initiated "+entity);
+		try {
+			delete(exportDto(entity));
+			return "SUCCESS";
+		} catch (Exception e) {
+			System.err.println("[PMC][TaskOwnersDao][allOwnersInstance][error] " + e.getMessage());
+		}
+		return "FAILURE";
+	}
+	
+	public String createTaskOwnerInstance(TaskOwnersDto dto) {
+
+		//            System.err.println("[PMC][ConsumeODataFacade][createTaskOwnerInstance]initiated with " + dto);
+		try {
+			create(dto);
+			return "SUCCESS";
+		} catch (Exception e) {
+			System.err.println("[PMC][ConsumeODataFacade][createTaskOwnerInstance][error] " + e.getMessage());
+		}
+		return "FAILURE";
+	}
+
+	public String updateTaskOwnerInstance(TaskOwnersDto dto) {
+		//            System.err.println("[PMC][ConsumeODataFacade][updateTaskOwnerInstance]initiated with " + dto);
+		try {
+			update(dto);
+			return "SUCCESS";
+		} catch (Exception e) {
+			System.err.println("[PMC][ConsumeODataFacade][updateTaskOwnerInstance][error] " + e.getMessage());
+		}
+		return "FAILURE";
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<TaskOwnersDo> getOwnerInstances(String instanceId) {
+		Query query = this.getEntityManager()
+				.createQuery("select to from TaskOwnersDo to where to.taskOwnersDoPK.eventId =:instanceId");
+		query.setParameter("instanceId", instanceId);
+
+		List<TaskOwnersDo>  dos =  (List<TaskOwnersDo>) query.getResultList();
+
+		if(dos.size()>0){
+			return  dos;
+		}
+		else{
+			return null;
+		}
+	}
+
+	
+	@SuppressWarnings("unchecked")
+	public String deleteSubstitutedTasks(String owner,List<String> existingList) {
+		//            System.err.println("[PMC][TaskOwnersDao][getInstanceByOwner]initiated with "+owner);
+		try {
+			Query query = this.getEntityManager().createQuery("select te from TaskOwnersDo te where te.taskOwnersDoPK.taskOwner = :owner and te.isSubstituted = 0");
+			query.setParameter("owner", owner);
+			List<TaskOwnersDo> ownerdos = (List<TaskOwnersDo>) query.getResultList();
+			for(TaskOwnersDo entity : ownerdos){
+				if(!existingList.contains(entity.getTaskOwnersDoPK().getEventId()))
+				delete(exportDto(entity));
+			}
+			return "SUCCESS";
+		} catch (Exception e) {
+			System.err.println("[PMC][TaskOwnersDao][deleteSubstitutedTasks][error] " + e.getMessage());
+		}
+		return "FAILURE";
+	}
+
 }

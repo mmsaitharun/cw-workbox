@@ -5,8 +5,8 @@ import java.util.List;
 import javax.ejb.Stateless;
 
 import oneapp.incture.workbox.pmc.dto.ProcessActionDto;
-import oneapp.incture.workbox.pmc.dto.ResponseMessage;
 import oneapp.incture.workbox.pmc.wsdlconsumers.ProcessActionConsumer;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 import oneapp.incture.workbox.util.ServicesUtil;
 
 /**

@@ -6,10 +6,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import oneapp.incture.workbox.inbox.dto.ResponseMessage;
 import oneapp.incture.workbox.inbox.dto.WorkBoxActionDto;
 import oneapp.incture.workbox.inbox.dto.WorkBoxActionListDto;
 import oneapp.incture.workbox.pmc.wsdlconsumers.WorkBoxActionsConsumer;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 
 @Path("/workboxAction")
 @Produces({ MediaType.APPLICATION_JSON })

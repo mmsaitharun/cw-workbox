@@ -10,8 +10,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import oneapp.incture.workbox.pmc.dto.AdminControlDto;
-import oneapp.incture.workbox.pmc.dto.ResponseMessage;
 import oneapp.incture.workbox.pmc.services.AdminControlFacadeLocal;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 
 @Path("/admin")
 @Produces({ MediaType.APPLICATION_JSON })

@@ -7,11 +7,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import oneapp.incture.workbox.pmc.dto.ActionDto;
-import oneapp.incture.workbox.pmc.dto.ResponseMessage;
 import oneapp.incture.workbox.pmc.dto.RuleManagementDto;
-import oneapp.incture.workbox.pmc.dto.RuleManagementRequestDto;
 import oneapp.incture.workbox.pmc.dto.TaskNameDto;
 import oneapp.incture.workbox.pmc.entity.RuleManagementDo;
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
 import oneapp.incture.workbox.util.ExecutionFault;
 import oneapp.incture.workbox.util.InvalidInputFault;
 import oneapp.incture.workbox.util.NoResultFault;
@@ -173,8 +172,7 @@ public class RuleManagementDao extends BaseDao<RuleManagementDo, RuleManagementD
 		}
 	}
 
-	public ResponseMessage submitRules(RuleManagementRequestDto ruleRequestDto) {
-		List<RuleManagementDto> dtoList = ruleRequestDto.getDtoList();
+	public ResponseMessage submitRules(List<RuleManagementDto> dtoList) {
 		ResponseMessage response = new ResponseMessage();
 		if (!ServicesUtil.isEmpty(dtoList)) {
 			int i = 1;

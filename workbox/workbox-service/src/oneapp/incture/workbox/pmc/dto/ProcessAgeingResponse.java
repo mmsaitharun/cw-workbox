@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import oneapp.incture.workbox.poadapter.dto.ResponseMessage;
+
 @XmlRootElement
 public class ProcessAgeingResponse extends PMCReportBaseDto {
 
